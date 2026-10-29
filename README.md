@@ -17,8 +17,10 @@ frontend/
   src/
     assets/               Hình ảnh, font và tài nguyên giao diện
     components/           Thành phần giao diện dùng lại
+      FoodForm.jsx        Biểu mẫu thêm và sửa món ăn
     pages/                Các trang
     services/             Giao tiếp với backend API
+      foodsApi.js         Giao tiếp với foods API
     styles/               CSS dùng chung
     App.jsx               Giao diện chính
     main.jsx              Điểm khởi chạy frontend
@@ -36,7 +38,6 @@ backend/
     app.js                Khởi tạo Express và API
     server.js             Điểm khởi chạy backend
   tests/                  Kiểm thử API
-  tests/                  Kiểm thử backend
 ```
 
 ## Yêu cầu
@@ -72,6 +73,8 @@ backend/
    ```
 
    Truy cập URL Vite hiển thị trong terminal (mặc định `http://localhost:5173`). Frontend chuyển tiếp request `/api` đến backend.
+
+   Để cấu hình frontend gọi trực tiếp backend khi triển khai, tạo `frontend/.env` từ mẫu `frontend/.env.example` và đặt `VITE_API_URL` bằng URL backend (ví dụ `https://api.example.com`). Cấu hình `FRONTEND_ORIGIN` trong backend bằng origin của frontend (ví dụ `https://web.example.com`); có thể khai báo nhiều origin cách nhau bằng dấu phẩy. Giá trị `VITE_API_URL` để trống sẽ dùng proxy của Vite khi phát triển cục bộ. Sau khi thay biến môi trường Vite, khởi động lại frontend hoặc build lại ứng dụng.
 
 ## Bảo mật cấu hình
 
@@ -113,4 +116,4 @@ npm test
 
 ## Trạng thái
 
-Frontend hiện có trang khởi tạo; backend cung cấp API CRUD món ăn, tìm kiếm và kiểm tra sức khỏe. Docker và triển khai Render chưa được cấu hình.
+Frontend hỗ trợ danh sách, tìm kiếm, xem chi tiết và CRUD món ăn; backend cung cấp API CRUD, tìm kiếm và kiểm tra sức khỏe. Docker và triển khai Render chưa được cấu hình.

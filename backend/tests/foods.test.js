@@ -125,6 +125,13 @@ test("food API supports CRUD, validation, uniqueness, search, and health checks"
 });
 
 test("health endpoint reports unavailable when MongoDB is disconnected", async () => {
+  const preflight = await request(app)
+    .options("/api/foods")
+    .set("Origin", "http://localhost:5173")
+    .set("Access-Control-Request-Method", "POST");
+  assert.equal(preflight.status, 204);
+  assert.equal(preflight.headers["access-control-allow-origin"], "http://localhost:5173");
+
   await mongoose.disconnect();
 
   const response = await request(app).get("/health");

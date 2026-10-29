@@ -1,10 +1,16 @@
 const express = require("express");
+const cors = require("cors");
 const mongoose = require("mongoose");
 const foodRoutes = require("./routes/foodRoutes");
 const errorHandler = require("./middleware/errorHandler");
 
 const app = express();
+const allowedOrigins = (process.env.FRONTEND_ORIGIN || "http://localhost:5173")
+  .split(",")
+  .map((origin) => origin.trim())
+  .filter(Boolean);
 
+app.use(cors({ origin: allowedOrigins }));
 app.use(express.json({ limit: "1mb" }));
 
 app.get(["/health", "/api/health"], (req, res) => {
