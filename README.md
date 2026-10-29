@@ -114,6 +114,23 @@ cd backend
 npm test
 ```
 
-## Trạng thái
+## Câu 5 — Đóng gói backend bằng Docker
 
-Frontend hỗ trợ danh sách, tìm kiếm, xem chi tiết và CRUD món ăn; backend cung cấp API CRUD, tìm kiếm và kiểm tra sức khỏe. Docker và triển khai Render chưa được cấu hình.
+Từ thư mục gốc, tạo cấu hình backend riêng ở `backend/.env` theo phần cài đặt ở trên, sau đó build và chạy container:
+
+```powershell
+docker build -t 235985tangthienthanh/backend:latest ./backend
+docker run -d --name food-backend -p 5000:5000 --env-file backend/.env 235985tangthienthanh/backend:latest
+docker ps
+curl.exe http://localhost:5000/health
+```
+
+Container cần `PORT`, `MONGODB_URI` và `FRONTEND_ORIGIN`; không có biến bí mật nào được đưa vào image. Theo dõi log bằng `docker logs -f food-backend` và dừng/xóa container bằng `docker rm -f food-backend`.
+
+Image backend: `docker.io/235985tangthienthanh/backend:latest`. Đăng nhập Docker Hub bằng `docker login`, sau đó đẩy image bằng:
+
+```powershell
+docker push 235985tangthienthanh/backend:latest
+```
+
+Image repository: [hub.docker.com/r/235985tangthienthanh/backend](https://hub.docker.com/r/235985tangthienthanh/backend).
