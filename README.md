@@ -167,3 +167,18 @@ Image frontend: `docker.io/235985tangthienthanh/frontend:latest`; repository: [h
 - Foods API: [https://api-235985.onrender.com/api/foods](https://api-235985.onrender.com/api/foods)
 
 Render frontend cần đặt `API_URL=https://api-235985.onrender.com`; Render backend cần đặt `FRONTEND_ORIGIN=https://web-235985.onrender.com`. Sau khi đổi biến môi trường, redeploy dịch vụ tương ứng để áp dụng cấu hình.
+
+## Câu 9 — Kiểm tra tổng thể và thông tin nộp bài
+
+| Hạng mục | Đường dẫn / kết quả |
+|---|---|
+| GitHub repository | [235985_TangThienThanh](https://github.com/thvnking/235985_TangThienThanh) |
+| Frontend Render | [https://web-235985.onrender.com](https://web-235985.onrender.com) |
+| Backend Render | [https://api-235985.onrender.com](https://api-235985.onrender.com) |
+| Health check | [https://api-235985.onrender.com/health](https://api-235985.onrender.com/health) — `status: ok`, MongoDB connected |
+| Foods API | [https://api-235985.onrender.com/api/foods](https://api-235985.onrender.com/api/foods) |
+| Docker Hub backend | [235985tangthienthanh/backend:latest](https://hub.docker.com/r/235985tangthienthanh/backend) |
+| Docker Hub frontend | [235985tangthienthanh/frontend:latest](https://hub.docker.com/r/235985tangthienthanh/frontend) |
+| MongoDB Atlas | Database `235985_TangThienThanh`, collection `foods` |
+
+Kiểm tra tổng thể: frontend công khai tải thành công và hiển thị món ăn lấy từ API; CORS cho phép origin frontend Render. CRUD công khai (thêm, xem chi tiết, tìm kiếm, cập nhật, xóa) đã được kiểm thử trên MongoDB Atlas; món kiểm thử đã được xóa sau khi xác minh. Backend tests và frontend production build đều thành công.
