@@ -1,4 +1,8 @@
-const apiBaseUrl = (import.meta.env.VITE_API_URL || "").replace(/\/+$/, "");
+const apiBaseUrl = (
+  window.__APP_CONFIG__?.API_URL ||
+  import.meta.env.VITE_API_URL ||
+  ""
+).replace(/\/+$/, "");
 
 async function request(path, options = {}) {
   let response;

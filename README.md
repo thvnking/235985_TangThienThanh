@@ -134,3 +134,27 @@ docker push 235985tangthienthanh/backend:latest
 ```
 
 Image repository: [hub.docker.com/r/235985tangthienthanh/backend](https://hub.docker.com/r/235985tangthienthanh/backend).
+
+## Câu 6 — Đóng gói frontend bằng Docker
+
+Build image từ thư mục gốc:
+
+```powershell
+docker build -t 235985tangthienthanh/frontend:latest ./frontend
+```
+
+Chạy frontend container và trỏ trình duyệt đến backend. `API_URL` là URL mà trình duyệt người dùng truy cập được; backend cần cho phép frontend origin trong `FRONTEND_ORIGIN`:
+
+```powershell
+docker run -d --name food-frontend -p 8080:8080 -e API_URL=http://localhost:5000 235985tangthienthanh/frontend:latest
+```
+
+Mở `http://localhost:8080`. Để gọi backend đã triển khai, đặt `API_URL` thành URL công khai của backend, ví dụ `https://api.example.com`. Không có URI cơ sở dữ liệu hoặc bí mật nào được nhúng vào frontend image. Dừng/xóa container bằng `docker rm -f food-frontend`.
+
+Đăng nhập Docker Hub bằng `docker login`, rồi đẩy image:
+
+```powershell
+docker push 235985tangthienthanh/frontend:latest
+```
+
+Image frontend: `docker.io/235985tangthienthanh/frontend:latest`; repository: [hub.docker.com/r/235985tangthienthanh/frontend](https://hub.docker.com/r/235985tangthienthanh/frontend).
