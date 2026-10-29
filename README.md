@@ -1,12 +1,12 @@
 # 235985_TangThienThanh
 
-Ứng dụng quản lý món ăn. Repository này khởi tạo frontend và backend API; các chức năng quản lý món ăn và kết nối MongoDB Atlas sẽ được phát triển tiếp theo.
+Ứng dụng quản lý món ăn với frontend React và backend REST API; backend lưu dữ liệu món ăn trên MongoDB Atlas.
 
 ## Công nghệ
 
 - Frontend: React, Vite
 - Backend: Node.js, Express
-- Cơ sở dữ liệu dự kiến: MongoDB Atlas, database `235985_TangThienThanh`, collection `foods`
+- Cơ sở dữ liệu: MongoDB Atlas, database `235985_TangThienThanh`, collection `foods`
 - Đóng gói và triển khai dự kiến: Docker, Docker Hub, Render
 
 ## Cấu trúc dự án
@@ -26,14 +26,16 @@ frontend/
 backend/
   src/
     config/               Cấu hình ứng dụng
-    controllers/          Xử lý request
-    middleware/           Middleware
-    models/               Mô hình dữ liệu
+    controllers/          Xử lý request món ăn
+    middleware/           Xử lý lỗi API
+    models/               Mô hình dữ liệu Food
     routes/               Khai báo API routes
     services/             Nghiệp vụ
     utils/                Tiện ích dùng chung
+    config/database.js    Kết nối MongoDB
     app.js                Khởi tạo Express và API
     server.js             Điểm khởi chạy backend
+  tests/                  Kiểm thử API
   tests/                  Kiểm thử backend
 ```
 
@@ -41,11 +43,11 @@ backend/
 
 - Node.js 20 trở lên và npm
 - Git
-- MongoDB Atlas sẽ cần thiết khi triển khai chức năng lưu món ăn
+- MongoDB Atlas hoặc MongoDB tương thích
 
 ## Cài đặt và chạy ở môi trường phát triển
 
-1. Tạo file cấu hình backend từ mẫu:
+1. Tạo file cấu hình backend từ mẫu, sau đó thay `<username>`, `<password>` và `<cluster-host>` trong `MONGODB_URI` bằng thông tin MongoDB Atlas của bạn:
 
    ```powershell
    Copy-Item backend\.env.example backend\.env
@@ -59,7 +61,7 @@ backend/
    npm run dev
    ```
 
-   Backend mặc định chạy tại `http://localhost:5000`. Kiểm tra API tại `http://localhost:5000/api/health`.
+   Backend mặc định chạy tại `http://localhost:5000`. Kiểm tra trạng thái tại `http://localhost:5000/health` (tương thích thêm với `/api/health`).
 
 3. Mở terminal khác tại thư mục gốc, cài dependencies và chạy frontend:
 
@@ -77,6 +79,38 @@ backend/
 - Tạo cấu hình cục bộ từ `backend/.env.example`; chỉ chia sẻ các biến mẫu không chứa giá trị bí mật.
 - Nếu thông tin bí mật bị lộ, hãy thu hồi hoặc thay mới thông tin đó.
 
+## Backend API
+
+| Phương thức | Endpoint | Chức năng |
+|---|---|---|
+| GET | `/api/foods` | Lấy danh sách món ăn |
+| GET | `/api/foods?search=pho` | Tìm theo tên món, loại món hoặc vùng miền |
+| GET | `/api/foods/:id` | Xem chi tiết món ăn |
+| POST | `/api/foods` | Thêm món ăn |
+| PUT | `/api/foods/:id` | Cập nhật món ăn |
+| DELETE | `/api/foods/:id` | Xóa món ăn |
+| GET | `/health` | Kiểm tra backend và kết nối cơ sở dữ liệu |
+
+Món ăn cần có `foodId`, `name` và `category`; `foodId` không được trùng. `region`, `description` và `price` là tùy chọn. Ví dụ tạo món ăn:
+
+```json
+{
+  "foodId": "FOOD-001",
+  "name": "Phở bò",
+  "category": "Món nước",
+  "region": "Miền Bắc",
+  "description": "Phở truyền thống",
+  "price": 50000
+}
+```
+
+Chạy kiểm thử API (dùng MongoDB tạm thời, không cần Atlas):
+
+```powershell
+cd backend
+npm test
+```
+
 ## Trạng thái
 
-Frontend và backend hiện có trang khởi tạo và API kiểm tra trạng thái. Các chức năng CRUD món ăn, tích hợp MongoDB Atlas, Docker và triển khai Render chưa được cấu hình.
+Frontend hiện có trang khởi tạo; backend cung cấp API CRUD món ăn, tìm kiếm và kiểm tra sức khỏe. Docker và triển khai Render chưa được cấu hình.
