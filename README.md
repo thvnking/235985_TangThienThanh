@@ -158,3 +158,12 @@ docker push 235985tangthienthanh/frontend:latest
 ```
 
 Image frontend: `docker.io/235985tangthienthanh/frontend:latest`; repository: [hub.docker.com/r/235985tangthienthanh/frontend](https://hub.docker.com/r/235985tangthienthanh/frontend).
+
+## Câu 7 và Câu 8 — Triển khai trên Render
+
+- Frontend: [https://web-235985.onrender.com](https://web-235985.onrender.com)
+- Backend API: [https://api-235985.onrender.com](https://api-235985.onrender.com)
+- Health check: [https://api-235985.onrender.com/health](https://api-235985.onrender.com/health)
+- Foods API: [https://api-235985.onrender.com/api/foods](https://api-235985.onrender.com/api/foods)
+
+Render frontend cần đặt `API_URL=https://api-235985.onrender.com`; Render backend cần đặt `FRONTEND_ORIGIN=https://web-235985.onrender.com`. Sau khi đổi biến môi trường, redeploy dịch vụ tương ứng để áp dụng cấu hình.
