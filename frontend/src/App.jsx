@@ -8,6 +8,12 @@ const currency = new Intl.NumberFormat("vi-VN", {
   maximumFractionDigits: 0,
 });
 
+const foodImages = [
+  "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1579751626657-72bc17010498?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1571407970349-bc81e7e96d47?auto=format&fit=crop&w=800&q=80",
+];
+
 function Modal({ title, onClose, children, wide = false }) {
   useEffect(() => {
     function closeOnEscape(event) {
@@ -33,7 +39,7 @@ function Modal({ title, onClose, children, wide = false }) {
       >
         <div className="modal-heading">
           <div>
-            <p className="eyebrow">BẾP NHÀ · QUẢN LÝ THỰC ĐƠN</p>
+            <p className="eyebrow">LÒ PIZZA · THỰC ĐƠN NHÀ LÒ</p>
             <h2 id="modal-title">{title}</h2>
           </div>
           <button className="icon-button" type="button" aria-label="Đóng" onClick={onClose}>
@@ -150,38 +156,65 @@ function App() {
 
   return (
     <main className="page-shell">
+      <div className="announcement">
+        <span className="announcement-spark">✳</span>
+        NƯỚNG TƯƠI MỖI NGÀY <span className="announcement-divider">·</span> NGON NHƯ Ở Ý
+        <span className="announcement-spark">✳</span>
+      </div>
       <header className="topbar">
-        <a className="brand" href="/" aria-label="Bếp Nhà - trang chủ">
-          <span className="brand-mark" aria-hidden="true">B</span>
-          <span>Bếp Nhà<span className="brand-dot">.</span></span>
+        <a className="brand" href="/" aria-label="Lò Pizza - trang chủ">
+          <span className="brand-mark" aria-hidden="true">🍕</span>
+          <span>LÒ PIZZA<span className="brand-dot">.</span></span>
         </a>
-        <span className="topbar-caption">KHÔNG GIAN QUẢN LÝ ẨM THỰC</span>
-        <span className="topbar-avatar" aria-label="Quản trị viên">TN</span>
+        <nav className="topbar-nav" aria-label="Điều hướng chính">
+          <a href="#menu">Thực đơn</a>
+          <a href="#story">Câu chuyện</a>
+        </nav>
+        <a className="topbar-order" href="#menu">Ghé thăm gian bếp <span aria-hidden="true">↗</span></a>
       </header>
 
       <section className="hero">
         <div className="hero-copy">
-          <p className="eyebrow">THỰC ĐƠN CỦA BẠN</p>
-          <h1>Món ngon mỗi ngày<span>.</span></h1>
+          <span className="hero-kicker"><span className="kicker-dot" /> PIZZERIA · TỪ 2024</span>
+          <h1>Một miếng pizza,<br />ấm cả <em>buổi tối.</em></h1>
           <p className="hero-description">
-            Quản lý bộ sưu tập món ăn của bạn — gọn gàng, dễ dàng và đầy cảm hứng.
+            Đế bánh nướng lò đá, sốt cà chua chín mọng và những buổi tối quây quần thật lâu.
           </p>
+          <div className="hero-actions">
+            <a className="button button-primary hero-cta" href="#menu">
+              Khám phá thực đơn <span aria-hidden="true">↘</span>
+            </a>
+            <span className="hero-note">Làm thủ công, nướng bằng lửa thật.</span>
+          </div>
+          <div className="hero-stats">
+            <div><strong>48<span>h</span></strong><small>ủ bột chậm</small></div>
+            <i />
+            <div><strong>100<span>%</span></strong><small>nguyên liệu tươi</small></div>
+            <i />
+            <div><strong>400<span>°</span></strong><small>lò đá thủ công</small></div>
+          </div>
         </div>
-        <div className="hero-decoration" aria-hidden="true">
-          <span>✳</span>
-          <span>✳</span>
-          <span>✳</span>
+        <div className="hero-visual">
+          <img
+            src={foodImages[0]}
+            alt="Pizza nướng lò với phô mai và cà chua tươi"
+            className="hero-image"
+          />
+          <div className="hero-image-shade" />
+          <div className="hero-stamp"><span>FATTO</span><strong>con<br />amore</strong><span>DAL 2024</span></div>
+          <div className="hero-image-caption"><span className="caption-line" /> LÒ NƯỚNG ĐANG ĐỎ LỬA</div>
         </div>
       </section>
 
-      <section className="menu-section" aria-labelledby="menu-heading">
+      <section className="menu-section" id="menu" aria-labelledby="menu-heading">
         <div className="section-heading">
           <div>
-            <p className="eyebrow">BỘ SƯU TẬP</p>
-            <h2 id="menu-heading">Danh sách món ăn</h2>
+            <p className="eyebrow">TỪ LÒ NÓNG, VỚI TÌNH YÊU</p>
+            <h2 id="menu-heading">Thực đơn nhà Lò<span>.</span></h2>
+            <p className="section-description">Món ngon làm thủ công, dành cho những cuộc vui không vội.</p>
           </div>
           <button className="button button-primary add-button" type="button" onClick={openCreate}>
-            <span aria-hidden="true">＋</span> Thêm món mới
+            <span aria-hidden="true">＋</span> Thêm món vào thực đơn
           </button>
         </div>
 
@@ -192,7 +225,7 @@ function App() {
               type="search"
               value={search}
               onChange={(event) => setSearch(event.target.value)}
-              placeholder="Tìm theo tên món, loại món, vùng miền..."
+              placeholder="Bạn đang thèm món gì?"
               aria-label="Tìm kiếm món ăn"
             />
             {search && (
@@ -207,7 +240,7 @@ function App() {
             )}
           </label>
           <span className="result-count">
-            {loading ? "Đang tải..." : `${foods.length} món ăn`}
+            {loading ? "Đang tải..." : `${foods.length} món ngon`}
           </span>
         </div>
 
@@ -233,7 +266,7 @@ function App() {
           </div>
         ) : !error && foods.length === 0 ? (
           <div className="empty-state">
-            <div className="empty-illustration" aria-hidden="true">✳</div>
+            <div className="empty-illustration" aria-hidden="true">🍕</div>
             <h3>{isSearching ? "Chưa tìm thấy món ăn" : "Thực đơn còn trống"}</h3>
             <p>
               {isSearching
@@ -254,8 +287,13 @@ function App() {
           <div className="food-grid">
             {foods.map((food, index) => (
               <article className="food-card" key={food._id}>
-                <div className={`food-card-accent accent-${index % 4}`} aria-hidden="true">
-                  <span>{["✳", "❋", "✿", "❊"][index % 4]}</span>
+                <div className={`food-card-accent accent-${index % 3}`}>
+                  <img
+                    src={foodImages[index % foodImages.length]}
+                    alt=""
+                    loading="lazy"
+                  />
+                  <span className="food-image-tag">TỪ LÒ NHÀ LÒ</span>
                   <span className="food-card-number">{String(index + 1).padStart(2, "0")}</span>
                 </div>
                 <div className="food-card-content">
@@ -266,9 +304,7 @@ function App() {
                   <button className="food-name" type="button" onClick={() => openDetail(food)}>
                     {food.name}
                   </button>
-                  <p className="food-description">
-                    {food.description || "Một món ngon đang chờ bạn khám phá."}
-                  </p>
+                  <p className="food-description">{food.description || "Nướng thủ công, thơm ngon trong từng miếng."}</p>
                   <div className="food-card-footer">
                     <span className="food-price">
                       {typeof food.price === "number" ? currency.format(food.price) : "Chưa có giá"}
@@ -299,8 +335,9 @@ function App() {
       </section>
 
       <footer className="page-footer">
-        <span>BẾP NHÀ<span className="brand-dot">.</span></span>
-        <span>Nuôi dưỡng cảm hứng trong từng món ăn.</span>
+        <div className="footer-brand"><span className="footer-mark">🍕</span><span>LÒ PIZZA<span className="brand-dot">.</span></span></div>
+        <span id="story">Bột, lửa và những câu chuyện quanh bàn ăn.</span>
+        <span className="footer-est">FATTO CON AMORE · 2024</span>
       </footer>
 
       {modal?.type === "create" && (
