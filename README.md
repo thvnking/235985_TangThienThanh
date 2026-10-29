@@ -143,7 +143,7 @@ Build image từ thư mục gốc:
 docker build -t 235985tangthienthanh/frontend:latest ./frontend
 ```
 
-Chạy frontend container và trỏ trình duyệt đến backend. `API_URL` là URL mà trình duyệt người dùng truy cập được; backend cần cho phép frontend origin trong `FRONTEND_ORIGIN`:
+Chạy frontend container và trỏ trình duyệt đến backend. `API_URL` là URL mà trình duyệt người dùng truy cập được; backend cần cho phép frontend origin trong `FRONTEND_ORIGIN`. Nginx mặc định lắng nghe port `8080`, đồng thời dùng biến `PORT` nếu môi trường triển khai (như Render) cung cấp port khác:
 
 ```powershell
 docker run -d --name food-frontend -p 8080:8080 -e API_URL=http://localhost:5000 235985tangthienthanh/frontend:latest
